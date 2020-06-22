@@ -8,6 +8,7 @@ from libs.strings import gettext
 wallet_schema = WalletSchema()
 
 
+
 class Wallet(Resource):
     @classmethod
     def get(cls, mobile_number: str):
@@ -18,15 +19,20 @@ class Wallet(Resource):
         """
         wallet = WalletModel.find_by_mobile_number(mobile_number)
         if wallet is None:
-            return {"message": gettext("WALLET_NOT_FOUND").format(mobile_number)}, 404
+            return {"message": gettext("WALLET_NOT_FOUND").format(mobile_number)}, 400
 
         if not wallet.kyc_status:
-            return {"message": gettext("KYC_NOT_DONE").format(mobile_number)}, 404
+            return {"message": gettext("KYC_NOT_DONE").format(mobile_number)}, 400
 
         return wallet_schema.dump(wallet), 200
 
 
 class WalletAmount(Resource):
+
+    @classmethod
+    def get(cls):
+        return {"wallets":[wallet_schema.dump(wallet) for wallet in WalletModel.query.all()]}
+
     @classmethod
     def put(cls):
         """
