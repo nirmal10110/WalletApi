@@ -8,6 +8,11 @@ from libs.strings import gettext
 wallet_schema = WalletSchema()
 
 
+class Wallets(Resource):
+    @classmethod
+    def get(cls):
+        return {"wallets": [wallet_schema.dump(wallet) for wallet in WalletModel.query.all()]}
+
 
 class Wallet(Resource):
     @classmethod
@@ -29,9 +34,6 @@ class Wallet(Resource):
 
 class WalletAmount(Resource):
 
-    @classmethod
-    def get(cls):
-        return {"wallets":[wallet_schema.dump(wallet) for wallet in WalletModel.query.all()]}
 
     @classmethod
     def put(cls):
