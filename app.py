@@ -19,7 +19,6 @@ api.add_resource(AddWallet, "/addwallet")
 api.add_resource(Wallets, "/wallet/getallwallets")
 
 if __name__ == "__main__":
-
     ma.init_app(app)
     app.run(port=5000, debug=True)
 
