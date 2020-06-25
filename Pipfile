@@ -19,8 +19,6 @@ Flask-RESTful = "*"
 Flask-SQLAlchemy = "*"
 Flask-Cors = "*"
 PyMySQL = "*"
-gunicorn = "*"
-uwsgi = "*"
 
 [requires]
 python_version = "3.7"

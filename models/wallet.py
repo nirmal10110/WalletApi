@@ -6,7 +6,7 @@ class WalletModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mobile_number = db.Column(db.String, unique=True, nullable=False)
     kyc_status = db.Column(db.Boolean, default=False, nullable=False)
-    amount = db.Column(db.Integer, default=0, nullable=False)
+    amount = db.Column(db.Float, default=0, nullable=False)
 
     @classmethod
     def find_by_mobile_number(cls, mobile_no: str) -> "WalletModel":

@@ -5,5 +5,7 @@
   "PAYMENT_SUCCESSFUL" : "Payment_successful",
   "WALLET_EXIST" : "Wallet with mobile number '{}' already exist",
   "ERROR_IN_SAVING_WALLET" : "Some error occurred in saving the wallet with mobile number: '{}'",
-  "ERROR_IN_SENDING_MONEY" : "Server error in making the transaction. Try again Later"
+  "ERROR_IN_SENDING_MONEY" : "Server error in making the transaction. Try again Later",
+  "ERROR_IN_ADDING_MONEY" : "Server error in adding the money. Try again Later",
+  "MONEY_ADDED_SUCCESSFULLY" : "Money added in wallet."
 }
