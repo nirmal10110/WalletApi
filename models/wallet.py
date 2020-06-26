@@ -12,7 +12,7 @@ class WalletModel(db.Model):
     def find_by_mobile_number(cls, mobile_no: str) -> "WalletModel":
         return cls.query.filter_by(mobile_number=mobile_no).first()
 
-    def reduce_amount(self, amount:int):
+    def reduce_amount(self, amount: int):
         self.amount = (int(self.amount) - amount)
 
     def add_amount(self, amount:int):

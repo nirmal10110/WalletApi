@@ -96,7 +96,7 @@ class WalletSendAmount(Resource):
             return Encryption.encrypt(
                 {"message": gettext("ERROR_IN_SENDING_MONEY")}
             ), 500
-        return Encryption.encrypting_the_dict_data(
+        return Encryption.encrypt(
             {"message": gettext("PAYMENT_SUCCESSFUL")}
         ), 200
 
