@@ -4,14 +4,11 @@ from cryptography.fernet import Fernet
 import json
 
 
-#key = os.environ.get("WALLET_KEY")
-key = "IdEsC3I1R9ZJDp0PmHtFXWkIWJq7ACJCrqRsZubVEOM="
-
-
-class Encription:
+class Encryption:
     @classmethod
-    def encrypting_the_dict_data(cls, data: Dict):
+    def encrypt(cls, data: Dict):
         print(data, type(data))
+        key = open("./libs/key.key").read()
         wallet_key = bytes(key, 'ascii')
         f = Fernet(wallet_key)
         encrypted_data = {}
@@ -19,7 +16,7 @@ class Encription:
         for i in data:
             if type(data[i]) != type(a):
                 data[i] = str(data[i])
-            encrypted_data[f.encrypt(bytes(i, 'ascii')).decode('ascii')] = \
+            encrypted_data[i] = \
                 f.encrypt(bytes(data[i], 'ascii')).decode('ascii')
         # print(type(encrypted_data),encrypted_data)
         return encrypted_data
