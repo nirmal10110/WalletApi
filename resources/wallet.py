@@ -7,16 +7,14 @@ from schemas.wallet import WalletSchema
 from models.wallet import WalletModel
 from libs.strings import gettext
 from libs.encryption import Encryption
+from libs.decryption import Decryption
 
 wallet_schema = WalletSchema()
 
 
-# wallet_key = bytes(os.environ.get("WALLET_KEY"), 'ascii')
-
-
 class Wallets(Resource):
     @classmethod
-    def get(self):
+    def get(cls):
         return {"wallets": [wallet_schema.dump(wallet) for wallet in WalletModel.query.all()]}, 200
 
 
@@ -28,7 +26,9 @@ class Wallet(Resource):
         :param mobile_number:
         :return:
         """
-        mobile_number = request.get_json()["mobile_number"]
+        data = request.get_json()
+        # data = Decyption.decrypt(request.get_json())
+        mobile_number = data["mobile_number"]
         wallet = WalletModel.find_by_mobile_number(mobile_number)
         if wallet is None:
             return Encryption.encrypt(
@@ -44,8 +44,6 @@ class Wallet(Resource):
             wallet_schema.dump(wallet)
         ), 200
 
-
-class AddWallet(Resource):
     @classmethod
     def post(cls):
         """
@@ -53,6 +51,7 @@ class AddWallet(Resource):
         payload = {"mobile_number = "*****", "amount" = 8090 , "kyc_status" : true/false}
         """
         data = request.get_json()
+        # data = Decyption.decrypt(request.get_json())
         wallet = WalletModel.find_by_mobile_number(data["mobile_number"])
         if wallet:
             return {"message": gettext("WALLET_EXIST").format(data["mobile_number"])}, 400
@@ -65,7 +64,7 @@ class AddWallet(Resource):
         return wallet_schema.dump(wallet), 201
 
 
-class WalletSendAmount(Resource):
+class WalletAmountPay(Resource):
     @classmethod
     def put(cls):
         """
@@ -73,6 +72,7 @@ class WalletSendAmount(Resource):
         :return:
         """
         data = request.get_json()
+        # data = Decyption.decrypt(request.get_json())
         wallet = WalletModel.find_by_mobile_number(data["mobile_number"])
         if wallet is None:
             return Encryption.encrypt(
@@ -101,7 +101,7 @@ class WalletSendAmount(Resource):
         ), 200
 
 
-class WalletAddAmount(Resource):
+class WalletAmountAdd(Resource):
     """
     For adding money in an existing wallet
     payload = {"mobile_number": "********", "amount":13131}
@@ -110,6 +110,7 @@ class WalletAddAmount(Resource):
     @classmethod
     def put(cls):
         data = request.get_json()
+        # data = Decyption.decrypt(request.get_json())
         wallet = WalletModel.find_by_mobile_number(data["mobile_number"])
         if wallet is None:
             return Encryption.encrypt(

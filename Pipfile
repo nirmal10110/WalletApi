@@ -8,8 +8,8 @@ verify_ssl = true
 [packages]
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
-marshmallow = "==3.0.0b12"
-cryptography = "==2.6.1"
+marshmallow = "*"
+cryptography = "*"
 urllib3 = "==1.25.9"
 python-dotenv = "*"
 requests = "*"
