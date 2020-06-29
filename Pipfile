@@ -19,6 +19,7 @@ Flask-RESTful = "*"
 Flask-SQLAlchemy = "*"
 Flask-Cors = "*"
 PyMySQL = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.7"
