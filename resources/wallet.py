@@ -56,6 +56,7 @@ class Wallet(Resource):
         if wallet:
             return {"message": gettext("WALLET_EXIST").format(data["mobile_number"])}, 400
         else:
+            data["amount"]=float(data["amount"])
             wallet = wallet_schema.load(data)
         try:
             wallet.save_to_db()
@@ -89,7 +90,7 @@ class WalletAmountPay(Resource):
                 {"message": gettext("NOT_ENOUGH_BALANCE").format(data["mobile_number"])}
             ), 404
 
-        wallet.reduce_amount(data["amount"])
+        wallet.reduce_amount(float(data["amount"]))
         try:
             wallet.save_to_db()
         except:
@@ -117,7 +118,7 @@ class WalletAmountAdd(Resource):
                 {"message": gettext("WALLET_NOT_FOUND").format(data[mobile_number])}
             ), 400
         try:
-            wallet.add_amount(data["amount"])
+            wallet.add_amount(float(data["amount"]))
             wallet.save_to_db()
         except:
             return Encryption.encrypt(
